@@ -8,10 +8,24 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="addBookForm">
+    <div class="bookForm">
+      <form action="">
+        <input type="text" id="bookTitle" name="bookTitle" minlength="1" maxlength="80" placeholder="Title" required>
+        <input type="text" id="bookAuthor" name="bookAuthor" minlength="1" maxlength="50" placeholder="Author" required>
+        <input type="number" id="bookPages" name="bookPages" min="1" max="1000" placeholder="Number of pages" required>
+        <div class="bookRead">
+          <input type="checkbox" id="bookRead" name="bookRead">
+          <label for="bookRead">Have you finished this book?</label>
+        </div>
+      </form>
+      <button id="submitBtn">Submit</button>
+    </div>
+  </div>
   <div class="container">
     <div class="header">
       <h1>Library</h1>
-      <button>Add Book</button>
+      <button id="addBook">Add Book</button>
     </div>
     <div class="library"></div>
   </div>
