@@ -17,10 +17,15 @@ h1 {
   margin-bottom: 50px;
 }
 
-h6 {
+h6,
+h5 {
   font-size: 2rem;
   font-weight: normal;
   word-wrap: break-word;
+}
+
+h5 {
+  width: 70px;
 }
 
 p {

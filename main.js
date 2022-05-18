@@ -37,7 +37,7 @@ function displayBooks() {
       <p class="pages">Pages</p>
       <h6>${book.pages}</h6>
       <p class="read">Read</p>
-      <h6>${book.read}</h6>
+      <h5>${book.read}</h5>
       `;
     libraryDiv.appendChild(newDiv)
     book.bookNum = num;
@@ -71,6 +71,10 @@ function addClickListener(listDivs) {
 }
 
 function removeBook(e) {
+  if (e.target.outerHTML === '<h5>true</h5>' || e.target.outerHTML === '<h5>false</h5>') {
+    toggleRead(e);
+    return;
+  }
   const confirm = window.confirm("Are you sure you want to delete this book?");
   if (confirm === false) return;
   if (e.target.id === '') {
@@ -81,10 +85,20 @@ function removeBook(e) {
   displayBooks();
 };
 
-addBook('testing a longer title to see if the card still looks nice. this is a very long title', 'test', 'test', true, 'div1');
-addBook('test1', 'test1', 'test1', true, 'div2');
-addBook('test2', 'test2', 'test2', true, 'div3');
-addBook('test3', 'test3', 'test3', true, 'div4');
+function toggleRead(e) {
+  const target = e.target.parentElement.id;
+  if (e.target.innerHTML === 'false') {
+    library[target].read = true;
+  } else {
+    library[target].read = false;
+  }
+  displayBooks();
+}
+
+addBook('testing a longer title to see if the card still looks nice. this is a very long title', 'test', 'test', true);
+addBook('test1', 'test1', 'test1', true);
+addBook('test2', 'test2', 'test2', true);
+addBook('test3', 'test3', 'test3', true);
 
 bookForm.classList.add('hideForm');
 displayBooks();
