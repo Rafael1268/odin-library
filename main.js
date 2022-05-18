@@ -1,5 +1,6 @@
 const libraryDiv = document.querySelector('.library');
 const bookForm = document.querySelector('.addBookForm');
+const form = document.querySelector('.bookForm');
 const addBookBtn = document.querySelector('#addBook');
 const submitBtn = document.querySelector('#submitBtn');
 const bookTitle = document.querySelector('#bookTitle');
@@ -24,10 +25,9 @@ function addBook(title, author, pages, read) {
 };
 
 function displayBooks() {
-  let num = 0;
+  num = 0;
   libraryDiv.replaceChildren();
   library.forEach(book => {
-    num++
     const newDiv = document.createElement('div');
     newDiv.innerHTML = `
       <p class="title">Title</p>
@@ -39,17 +39,20 @@ function displayBooks() {
       <p class="read">Read</p>
       <h6>${book.read}</h6>
       `;
-    newDiv.setAttribute('id', `div${num}`)
-    const oldDiv = document.querySelector(`#div${num - 1}`);
-    libraryDiv.insertBefore(newDiv, oldDiv)
+    libraryDiv.appendChild(newDiv)
+    book.bookNum = num;
+    newDiv.setAttribute('id', num)
+    num++
   })
+  let allDivs = libraryDiv.querySelectorAll('div');
+  addClickListener(allDivs);
 };
 
 function addBookForm() {
   if (bookTitle.value.length === 0 || bookAuthor.value.length === 0 || bookPages.value < 1) {
     return alert("Please fill in all the fields");
   }
-  addBook(bookTitle.value, bookAuthor.value, bookPages.value, bookRead.checked);
+  addBook(bookTitle.value, bookAuthor.value, bookPages.value, bookRead.checked, library.length);
   bookForm.classList.add('hideForm');
   displayBooks();
 };
@@ -58,10 +61,27 @@ function openForm() {
   bookForm.classList.remove('hideForm');
 };
 
-addBook('testing a longer title to see if the card still looks nice. this is a very long title', 'test', 'test', true);
-addBook('test1', 'test1', 'test1', true);
-addBook('test2', 'test2', 'test2', true);
-addBook('test3', 'test3', 'test3', true);
+function addClickListener(listDivs) {
+  listDivs.forEach(bookDiv => {
+    bookDiv.addEventListener('click', () => removeBook(event));
+  })
+}
+
+function removeBook(e) {
+  const confirm = window.confirm("Are you sure you want to delete this book?");
+  if (confirm === false) return;
+  if (e.target.id === '') {
+    library.splice(e.target.parentElement.id, 1);
+  } else {
+    library.splice(e.target.id, 1);
+  }
+  displayBooks();
+};
+
+addBook('testing a longer title to see if the card still looks nice. this is a very long title', 'test', 'test', true, 'div1');
+addBook('test1', 'test1', 'test1', true, 'div2');
+addBook('test2', 'test2', 'test2', true, 'div3');
+addBook('test3', 'test3', 'test3', true, 'div4');
 
 bookForm.classList.add('hideForm');
 displayBooks();
