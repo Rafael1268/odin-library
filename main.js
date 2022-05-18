@@ -52,6 +52,9 @@ function addBookForm() {
   if (bookTitle.value.length === 0 || bookAuthor.value.length === 0 || bookPages.value < 1) {
     return alert("Please fill in all the fields");
   }
+  if (bookPages.value > 9999) {
+    return alert("That's too many pages!");
+  }
   addBook(bookTitle.value, bookAuthor.value, bookPages.value, bookRead.checked, library.length);
   bookForm.classList.add('hideForm');
   displayBooks();

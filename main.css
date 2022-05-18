@@ -20,6 +20,7 @@ h1 {
 h6 {
   font-size: 2rem;
   font-weight: normal;
+  word-wrap: break-word;
 }
 
 p {
